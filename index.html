@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
+
+<head>
+    <meta http-equiv="Content-Type" content="application/vnd.wap.xhtml+xml;charset=utf-8" />
     <title>my-project</title>
-    <script type="text/javascript" src="./static/mobileUtil.js"></script>
+    <style type="text/css">
+    * {
+        /*scss 不知为何会删除改样式,故全局定义*/
+        -webkit-box-orient: vertical;
+    }
+    </style>
+    <script type="text/javascript" src="./static/js/plugins/mobileUtil.js"></script>
     <script type="text/javascript">
-    	mobileUtil.fixScreen();
+    mobileUtil.fixScreen();
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-  </body>
+    <script type="text/javascript" src="./static/js/plugins/fastclick.js"></script>
+    <script type="text/javascript">
+    var platform = navigator.platform || "";
+    if (platform.toLowerCase().indexOf("win") == -1) {
+        FastClick.attach(document.body);
+    }
+    </script>
+</body>
+
 </html>

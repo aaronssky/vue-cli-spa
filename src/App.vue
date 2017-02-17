@@ -14,6 +14,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./../static/css/iconfont.css";
 @mixin prefix($property, $value){
     -webkit-#{$property}: $value;
     -moz-#{$property}: $value;
@@ -21,17 +22,31 @@ export default {
 }
 $slideDuration: .3s;
 
-*{box-sizing:border-box;}
+*{
+  box-sizing:border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
 
 body{
   margin: 0;
   overflow-x:hidden;
   font-size: 0.4rem;
-}
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Microsoft YaHei, 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont{
+  font-size: 0.5rem;
+}
+
+.projection{
+  text-shadow: 2px 2px 2px #757070;
+}
+
+#app {
+  
   color: #2c3e50;
   overflow: hidden;
   width: 100%;

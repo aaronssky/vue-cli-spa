@@ -1,15 +1,21 @@
 <template>
   <div class="tab-page">
+    <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
     <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script>
+import TopFloating from './../components/TopFloating'
 export default {
-  name: 'hello',
+  components: { TopFloating },
   data () {
     return {
-      msg: '这是用户中心'
+      msg: '这是用户中心',
+      topFloatingSettings: {
+        title: '用户中心',
+        isNavPages: true
+      }
     }
   },
   mounted () {
@@ -19,7 +25,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1, h2 {
   font-weight: normal;
 }
