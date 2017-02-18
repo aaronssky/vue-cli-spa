@@ -1,7 +1,7 @@
 <template>
   <div class="tab-page Page-Found">
     <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
-    <FoundLooper></FoundLooper>
+    <FoundLooper v-bind:settings="foundLooperSettings"></FoundLooper>
     <div class="item-list">
       <div class="item">
         <div class="title">
@@ -75,7 +75,9 @@
 <script>
 import TopFloating from './../components/TopFloating'
 import FoundLooper from './../components/FoundLooper'
-export default {
+import pageExtend from './../../static/js/lib/pageExtend.js'
+
+let compnnentData = {
   components: {TopFloating, FoundLooper},
   data () {
     return {
@@ -84,13 +86,38 @@ export default {
         title: '发现',
         isNavPages: true
         // componentHide: true
+      },
+      foundLooperSettings: {
+        title: '11'
       }
     }
   },
   mounted () {
-    console.log('初始化页面-TabFound')
+    console.log(this.foundLooperSettings)
+    console.info('初始化页面-TabFound')
+  },
+  beforeRouteUpdate (to, from, next) {
+    // 在当前路由改变，但是改组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+    console.log(this)
+  },
+  beforeRouteEnter (to, from, next) {
+    // 页面切换时候导致swiper自动轮播失效，曲线救国方案，使用全局保存页面swiper对象，
+    if (global.foundSwiper) {
+      setTimeout(() => {
+        let len = global.foundSwiper.slides.length - 2
+        global.foundSwiper.slideTo(global.foundSwiper.activeIndex % len + 1)
+      }, 3000)
+    }
+    next()
   }
+
 }
+compnnentData = pageExtend.extendPageAutoScroll(compnnentData)
+
+export default compnnentData
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

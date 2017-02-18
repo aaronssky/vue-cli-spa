@@ -61,12 +61,13 @@ export default {
   }},
   data () {
     return {
+      foundSwiper: {}
     }
   },
   mounted () {
     console.log('初始化组件-FoundLooper')
     /* eslint-disable no-new */
-    new Swiper('.swiper-container', {
+    this.settings.swiper = global.foundSwiper = new Swiper('.swiper-container', {
       pagination: '.swiper-pagination',
       autoplay: 3000, // 可选选项，自动滑动
       loop: true,
@@ -74,6 +75,10 @@ export default {
     })
   },
   methods: {
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log(333333333333)
+    next()
   }
 }
 </script>

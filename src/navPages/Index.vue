@@ -1,6 +1,14 @@
 <template>
   <div class="page">
-    <router-view name="TabView"></router-view>
+    <keep-alive>
+      <router-view name="TabHome"></router-view>
+    </keep-alive>
+    <keep-alive>
+      <router-view name="TabFound"></router-view>
+    </keep-alive>
+    <keep-alive>
+      <router-view name="TabUserCenter"></router-view>
+    </keep-alive>
     <div class="nav-bottom">
       <div class="tab">
         <div class="tab-item">

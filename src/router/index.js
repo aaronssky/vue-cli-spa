@@ -7,9 +7,35 @@ import TabUserCenter from 'navPages/TabUserCenter'
 import Hello2 from 'subPages/Hello2'
 import Hello3 from 'subPages/Hello3'
 
+// scrollBehavior:
+// - only available in html5 history mode
+// - defaults to no scroll behavior
+// - return false to prevent scroll
+const scrollBehavior = (to, from, savedPosition) => {
+  console.info('----------------------------------≈')
+  console.log(savedPosition)
+  console.info('----------------------------------≈')
+  if (savedPosition) {
+    // savedPosition is only available for popstate navigations.
+    return savedPosition
+  } else {
+    // new navigation.
+    // scroll to anchor
+    if (to.hash) {
+      return { anchor: true }
+    }
+    // explicitly control scroll position
+    // check if any matched route config has meta that requires scrolling to top
+    if (to.matched.some(m => m.meta.scrollToTop)) {
+      return { x: 0, y: 0 }
+    }
+  }
+}
+
 Vue.use(Router)
 
 export default new Router({
+  scrollBehavior,
   routes: [
     {
       path: '/',
@@ -19,19 +45,19 @@ export default new Router({
         {
           path: '/TabHome',
           components: {
-            TabView: TabHome
+            TabHome: TabHome
           }
         },
         {
           path: '/TabFound',
           components: {
-            TabView: TabFound
+            TabFound: TabFound
           }
         },
         {
           path: '/TabUserCenter',
           components: {
-            TabView: TabUserCenter
+            TabUserCenter: TabUserCenter
           }
         }
       ]
@@ -59,6 +85,6 @@ export default new Router({
         Hello3: Hello3
       }
     }
-  ],
-  history: true
+  ]
+  // mode: 'history'
 })
