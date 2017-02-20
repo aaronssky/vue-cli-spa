@@ -69,16 +69,19 @@
       </div>
       
     </div>
+    <BottomNav></BottomNav>
+
   </div>
 </template>
 
 <script>
 import TopFloating from './../components/TopFloating'
+import BottomNav from './../components/BottomNav'
 import FoundLooper from './../components/FoundLooper'
 import pageExtend from './../../static/js/lib/pageExtend.js'
 
 let compnnentData = {
-  components: {TopFloating, FoundLooper},
+  components: {TopFloating, BottomNav, FoundLooper},
   data () {
     return {
       msg: '这是发现',

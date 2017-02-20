@@ -1,58 +1,75 @@
 <template>
   <div class="tab-page">
     <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <h1>{{ msg }}</h1>
-    <router-link to="/Hello2?id=1">路由跳转到Hello2</router-link>
+    <div class="page-content">
+      <h1 @click="show1">{{ msg }}</h1>
+      <h1 @click="hide1">{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1>
+      <router-link to="/Hello2?id=1">路由跳转到Hello2</router-link>
+    </div>
+    <BottomNav></BottomNav>
   </div>
 </template>
 
 <script>
 import TopFloating from './../components/TopFloating'
+import BottomNav from './../components/BottomNav'
+import Hello2 from './../subPages/Hello2'
 import pageExtend from './../../static/js/lib/pageExtend.js'
+
+let $$ = selector => {
+  let o = document.querySelectorAll(selector)
+  if (o && o.length >= 1) {
+    return o[0]
+  }
+  return o
+}
+
+function getPageContH () {
+  let topH = $$('.top-floating').offsetHeight
+  let navH = $$('.nav-bottom').offsetHeight
+  let winH = document.documentElement.clientHeight
+  return winH - topH - navH
+}
 let compnnentData = {
-  components: {TopFloating},
+  components: {TopFloating, BottomNav, Hello2},
   data () {
     return {
       msg: '这是首页',
       topFloatingSettings: {
         title: '首页标题',
         isNavPages: true
-      }
+      },
+      show: false
     }
   },
-  mounted () {
-    console.log('初始化页面-TabHome')
+  beforeRouteEnter (to, from, next) {
+    console.info('111211111111111111111')
+    window['pagesContScrollData'] = window['pagesContScrollData'] || {}
+    console.log(window['pagesContScrollData'])
+    let scrollData = window['pagesContScrollData']['/TabHome']
+    if (scrollData) {
+      let timer = setInterval(function () {
+        let obj = document.querySelector('.page-content')
+        if (obj) {
+          obj.scrollTop = scrollData['y']
+          clearInterval(timer)
+        }
+      }, 10)
+    }
+    next()
   },
   beforeRouteUpdate (to, from, next) {
     // 在当前路由改变，但是改组件被复用时调用
@@ -60,13 +77,25 @@ let compnnentData = {
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
     // 可以访问组件实例 `this`
   },
-  beforeRouteEnter (to, from, next) {
-    console.info('111211111111111111111')
+  beforeRouteLeave (to, from, next) {
+    window['pagesContScrollData'] = window['pagesContScrollData'] || {}
+    window['pagesContScrollData']['/TabHome'] = {
+      x: 0,
+      y: document.querySelector('.page-content').scrollTop
+    }
     next()
   },
-  beforeRouteLeave (to, from, next) {
-    console.error(this.msg)
-    next()
+  mounted () {
+    console.log('初始化页面-TabHome')
+    $$('.page-content').style.height = getPageContH() + 'px'
+  },
+  methods: {
+    show1 () {
+      this.show = true
+    },
+    hide1 () {
+      this.show = false
+    }
   }
 }
 
@@ -93,5 +122,12 @@ li {
 
 a {
   color: #42b983;
+}
+.tab-page{
+
+}
+.page-content{
+  height: 900px;
+  overflow: scroll;
 }
 </style>

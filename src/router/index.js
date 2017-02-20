@@ -85,6 +85,6 @@ export default new Router({
         Hello3: Hello3
       }
     }
-  ]
-  // mode: 'history'
+  ],
+  mode: 'history'
 })

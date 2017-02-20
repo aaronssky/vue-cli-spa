@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <transition :name="tName">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -20,7 +22,7 @@ export default {
     -moz-#{$property}: $value;
     #{$property}: $value;
 }
-$slideDuration: .3s;
+$slideDuration: 0.5s;
 
 *{
   box-sizing:border-box;
@@ -57,42 +59,61 @@ body{
   width: 100%;
   min-height: 100%;
   @include prefix(transition, all $slideDuration cubic-bezier(1.0, 0.5, 0.8, 1.0))
+  max-height: 100%
+}
+
+.page .page-content{
+  -webkit-overflow-scrolling : touch;
 }
 
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
 .slide-next-enter-active {
   @include prefix(transition, all $slideDuration cubic-bezier(1.0, 0.5, 0.8, 1.0))
+  max-height: 100%;
+  overflow: hidden;
   /*transition: all 1s ease;*/
   /*background-color: green;*/
 }
 .slide-next-leave-active {
   @include prefix(transition, all $slideDuration cubic-bezier(1.0, 0.5, 0.8, 1.0))
+  max-height: 100%;
+  overflow: hidden;
   /*background-color: red;*/
 }
 .slide-next-enter
 /* .slide-fade-leave-active for <2.1.8 */ {
   @include prefix(transform, translateX(100%))
+  max-height: 100%;
+  overflow: hidden;
   opacity: 0;
 }
 .slide-next-leave-to{
   @include prefix(transform, translateX(-100%))
   opacity: 0;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 .slide-prev-enter-active {
   @include prefix(transition, all $slideDuration cubic-bezier(1.0, 0.5, 0.8, 1.0))
+  max-height: 100%;
+  overflow: hidden;
   /*transition: all 1s ease;*/
   /*background-color: green;*/
 }
 .slide-prev-leave-active {
   @include prefix(transition, all $slideDuration cubic-bezier(1.0, 0.5, 0.8, 1.0))
+  max-height: 100%;
+  overflow: hidden;
   /*background-color: red;*/
 }
 .slide-prev-enter
 /* .slide-fade-leave-active for <2.1.8 */ {
   @include prefix(transform, translateX(-100%))
   opacity: 0;
+  max-height: 100%;
+  overflow: hidden;
 }
 .slide-prev-leave-to{
   @include prefix(transform, translateX(100%))

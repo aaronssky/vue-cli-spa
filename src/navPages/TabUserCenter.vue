@@ -2,13 +2,15 @@
   <div class="tab-page">
     <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
     <h1>{{ msg }}</h1>
+    <BottomNav></BottomNav>
   </div>
 </template>
 
 <script>
 import TopFloating from './../components/TopFloating'
+import BottomNav from './../components/BottomNav'
 export default {
-  components: { TopFloating },
+  components: {TopFloating, BottomNav},
   data () {
     return {
       msg: '这是用户中心',
