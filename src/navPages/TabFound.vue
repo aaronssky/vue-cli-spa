@@ -1,73 +1,154 @@
 <template>
-  <div class="tab-page Page-Found">
+  <div class="tab-page Page-Found" id="PageFound">
     <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
-    <FoundLooper v-bind:settings="foundLooperSettings"></FoundLooper>
-    <div class="item-list">
-      <div class="item">
-        <div class="title">
-          在法国，有这样一座并没有玫瑰的「玫瑰之城」
+    <div class="page-content">
+      <FoundLooper v-bind:settings="foundLooperSettings"></FoundLooper>
+      <div class="item-list">
+        <div class="item">
+          <div class="title">
+            在法国，有这样一座并没有玫瑰的「玫瑰之城」
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/9fed068fd899857e94404e132f1c006c.jpg"/>
+          </div>
         </div>
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/9fed068fd899857e94404e132f1c006c.jpg"/>
+        <div class="item">
+          <div class="title">
+            王健林叫板迪士尼，但主题乐园这门生意首富也玩不转
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/2356657ef32e5e42b507eec7a50b6e24.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            杨永信的「电疗法」和临床电刺激有什么区别？
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            在法国，有这样一座并没有玫瑰的「玫瑰之城」
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/9fed068fd899857e94404e132f1c006c.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            王健林叫板迪士尼，但主题乐园这门生意首富也玩不转
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/2356657ef32e5e42b507eec7a50b6e24.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            杨永信的「电疗法」和临床电刺激有什么区别？
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            杨永信的「电疗法」和临床电刺激有什么区别？
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            杨永信的「电疗法」和临床电刺激有什么区别？
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            杨永信的「电疗法」和临床电刺激有什么区别？
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            杨永信的「电疗法」和临床电刺激有什么区别？
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            杨永信的「电疗法」和临床电刺激有什么区别？
+          </div>
+          <div class="pic">
+            <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
+          </div>
         </div>
       </div>
-      <div class="item">
-        <div class="title">
-          王健林叫板迪士尼，但主题乐园这门生意首富也玩不转
-        </div>
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/2356657ef32e5e42b507eec7a50b6e24.jpg"/>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
-        </div>
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          杨永信的「电疗法」和临床电刺激有什么区别？
-        </div>
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          在法国，有这样一座并没有玫瑰的「玫瑰之城」
-        </div>
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/9fed068fd899857e94404e132f1c006c.jpg"/>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          王健林叫板迪士尼，但主题乐园这门生意首富也玩不转
-        </div>
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/2356657ef32e5e42b507eec7a50b6e24.jpg"/>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          身为化妆品研发，告诉你高档产品与平价产品的差别在哪里
-        </div>
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg"/>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          杨永信的「电疗法」和临床电刺激有什么区别？
-        </div>
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg"/>
-        </div>
-      </div>
-      
     </div>
     <BottomNav></BottomNav>
 
@@ -79,6 +160,21 @@ import TopFloating from './../components/TopFloating'
 import BottomNav from './../components/BottomNav'
 import FoundLooper from './../components/FoundLooper'
 import pageExtend from './../../static/js/lib/pageExtend.js'
+
+let $$ = selector => {
+  let o = document.querySelectorAll(selector)
+  if (o && o.length >= 1) {
+    return o[0]
+  }
+  return o
+}
+
+function getPageContH () {
+  let topH = $$('.Component-TopFloating').offsetHeight
+  let navH = $$('.nav-bottom').offsetHeight
+  let winH = document.documentElement.clientHeight
+  return winH - topH - navH
+}
 
 let compnnentData = {
   components: {TopFloating, BottomNav, FoundLooper},
@@ -94,10 +190,6 @@ let compnnentData = {
         title: '11'
       }
     }
-  },
-  mounted () {
-    console.log(this.foundLooperSettings)
-    console.info('初始化页面-TabFound')
   },
   beforeRouteUpdate (to, from, next) {
     // 在当前路由改变，但是改组件被复用时调用
@@ -115,10 +207,20 @@ let compnnentData = {
       }, 3000)
     }
     next()
+  },
+  beforeRouteLeave (to, from, next) {
+    next()
+  },
+  mounted () {
+    console.info('初始化页面-TabFound')
+    $$('#PageFound .page-content').style.height = getPageContH() + 'px'
   }
 
 }
 compnnentData = pageExtend.extendPageAutoScroll(compnnentData)
+compnnentData = pageExtend.extendAreaAutoScroll(compnnentData, {
+  el: '#PageFound .page-content'
+})
 
 export default compnnentData
 </script>

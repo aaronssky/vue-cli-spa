@@ -22,7 +22,7 @@ export default {
     -moz-#{$property}: $value;
     #{$property}: $value;
 }
-$slideDuration: 0.5s;
+$slideDuration: 0.3s;
 
 *{
   box-sizing:border-box;
@@ -64,6 +64,7 @@ body{
 
 .page .page-content{
   -webkit-overflow-scrolling : touch;
+  overflow: scroll;
 }
 
 /* Enter and leave animations can use different */

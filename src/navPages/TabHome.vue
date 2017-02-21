@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-page">
+  <div class="tab-page" id="PageHome">
     <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
     <div class="page-content">
       <h1 @click="show1">{{ msg }}</h1>
@@ -37,8 +37,10 @@ let $$ = selector => {
   return o
 }
 
+console.log(document.querySelector('.page-content'))
+
 function getPageContH () {
-  let topH = $$('.top-floating').offsetHeight
+  let topH = $$('.Component-TopFloating').offsetHeight
   let navH = $$('.nav-bottom').offsetHeight
   let winH = document.documentElement.clientHeight
   return winH - topH - navH
@@ -55,22 +57,6 @@ let compnnentData = {
       show: false
     }
   },
-  beforeRouteEnter (to, from, next) {
-    console.info('111211111111111111111')
-    window['pagesContScrollData'] = window['pagesContScrollData'] || {}
-    console.log(window['pagesContScrollData'])
-    let scrollData = window['pagesContScrollData']['/TabHome']
-    if (scrollData) {
-      let timer = setInterval(function () {
-        let obj = document.querySelector('.page-content')
-        if (obj) {
-          obj.scrollTop = scrollData['y']
-          clearInterval(timer)
-        }
-      }, 10)
-    }
-    next()
-  },
   beforeRouteUpdate (to, from, next) {
     // 在当前路由改变，但是改组件被复用时调用
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
@@ -78,16 +64,11 @@ let compnnentData = {
     // 可以访问组件实例 `this`
   },
   beforeRouteLeave (to, from, next) {
-    window['pagesContScrollData'] = window['pagesContScrollData'] || {}
-    window['pagesContScrollData']['/TabHome'] = {
-      x: 0,
-      y: document.querySelector('.page-content').scrollTop
-    }
     next()
   },
   mounted () {
     console.log('初始化页面-TabHome')
-    $$('.page-content').style.height = getPageContH() + 'px'
+    $$('#PageHome .page-content').style.height = getPageContH() + 'px'
   },
   methods: {
     show1 () {
@@ -100,6 +81,9 @@ let compnnentData = {
 }
 
 compnnentData = pageExtend.extendPageAutoScroll(compnnentData)
+compnnentData = pageExtend.extendAreaAutoScroll(compnnentData, {
+  el: '#PageHome .page-content'
+})
 
 export default compnnentData
 </script>
@@ -126,8 +110,5 @@ a {
 .tab-page{
 
 }
-.page-content{
-  height: 900px;
-  overflow: scroll;
-}
+
 </style>
