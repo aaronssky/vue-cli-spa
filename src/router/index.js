@@ -4,6 +4,7 @@ import Index from 'navPages/Index'
 import TabHome from 'navPages/TabHome'
 import TabFound from 'navPages/TabFound'
 import TabUserCenter from 'navPages/TabUserCenter'
+import ArticleDetail from 'subPages/ArticleDetail'
 import Hello2 from 'subPages/Hello2'
 import Hello3 from 'subPages/Hello3'
 
@@ -35,7 +36,9 @@ const scrollBehavior = (to, from, savedPosition) => {
 Vue.use(Router)
 
 export default new Router({
-  scrollBehavior,
+  transitionOnLoad: false, // 初次加载是否启用场景切换(vue2.0 废除)
+  linkActiveClass: 'router-link-active', // 链接被点击时候需要添加到v-link元素上的class类,默认为router-link-active
+  scrollBehavior, // 1.0使用 saveScrollPosition
   routes: [
     {
       path: '/',
@@ -61,6 +64,10 @@ export default new Router({
           }
         }
       ]
+    }, {
+      path: '/ArticleDetail',
+      name: 'ArticleDetail',
+      component: ArticleDetail
     }, {
       path: '/Hello2',
       name: 'Hello2',

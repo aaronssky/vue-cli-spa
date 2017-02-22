@@ -29,22 +29,6 @@ import BottomNav from './../components/BottomNav'
 import Hello2 from './../subPages/Hello2'
 import pageExtend from './../../static/js/lib/pageExtend.js'
 
-let $$ = selector => {
-  let o = document.querySelectorAll(selector)
-  if (o && o.length >= 1) {
-    return o[0]
-  }
-  return o
-}
-
-console.log(document.querySelector('.page-content'))
-
-function getPageContH () {
-  let topH = $$('.Component-TopFloating').offsetHeight
-  let navH = $$('.nav-bottom').offsetHeight
-  let winH = document.documentElement.clientHeight
-  return winH - topH - navH
-}
 let compnnentData = {
   components: {TopFloating, BottomNav, Hello2},
   data () {
@@ -67,8 +51,7 @@ let compnnentData = {
     next()
   },
   mounted () {
-    console.log('初始化页面-TabHome')
-    $$('#PageHome .page-content').style.height = getPageContH() + 'px'
+    console.log('钩子事件：mounted - ' + this.$router.history.current.fullPath)
   },
   methods: {
     show1 () {
@@ -82,7 +65,25 @@ let compnnentData = {
 
 compnnentData = pageExtend.extendPageAutoScroll(compnnentData)
 compnnentData = pageExtend.extendAreaAutoScroll(compnnentData, {
-  el: '#PageHome .page-content'
+  el: '#PageHome .page-content',
+  setElHeight: function () {
+    let $$ = selector => {
+      let o = document.querySelectorAll(selector)
+      if (o && o.length >= 1) {
+        return o[0]
+      }
+      return o
+    }
+
+    function getPageContH () {
+      let topH = $$('#PageHome .Component-TopFloating').offsetHeight
+      let navH = $$('#PageHome .nav-bottom').offsetHeight
+      let winH = document.documentElement.clientHeight
+      return winH - topH - navH - 1
+    }
+
+    return getPageContH() + 'px'
+  }
 })
 
 export default compnnentData

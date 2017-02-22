@@ -1,32 +1,13 @@
 <template>
   <!-- 这是 Hello2.vue -->
-  <div class="page" id="PageHello2">
+  <div class="page" id="ArticleDetail">
     <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
     <div class="page-content">
-      {{id}}
-      <h1>{{ msg }}</h1>
+      <transition name="fade">
+        <h1 v-show="switchFlag">{{ itemData.title }}</h1>
+      </transition>
+        {{queryId}}
       <router-link to="/Hello3">to page3</router-link>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>1</h1>
-
-    <router-view name="H2"></router-view>
-    <router-view name="Hello3"></router-view>
     </div>
     
   </div>
@@ -42,10 +23,15 @@ let compnnentData = {
     return {
       msg: 'hello page2222',
       id: '',
+      itemData: {},
       topFloatingSettings: {
-        title: 'page2'
-      }
+        title: '文章标题'
+      },
+      switchFlag: true
     }
+  },
+  mounted () {
+    console.log('钩子事件：mounted - ' + this.$router.history.current.fullPath)
   },
   beforeRouteUpdate (to, from, next) {
     // 用以同一个路由，但动态参数或者query参数修改刷新组件
@@ -53,28 +39,49 @@ let compnnentData = {
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
     // 可以访问组件实例 `this`
-    this.id = to.query.id
-    console.error(to)
-  },
-  mounted () {
-    console.log('钩子事件：mounted - ' + this.$router.history.current.fullPath)
-    // $$('#PageHello2 .page-content').style.height = (winH - topH) + 'px'
+    this.queryId = to.query.id
+    this.initDetail(this.queryId)
+    next() // 注：若去掉会导致url上切换其他id值，再切回当前记录的id值，会不触发该事件
   },
   activated () {
     // 用以keep-alive的组件刷新事件
-    console.log(this.$router.history.current.query)
-    this.id = this.$router.history.current.query.id
+    this.queryId = this.$router.history.current.query.id
     console.log('钩子事件：activated - ' + this.$router.history.current.fullPath)
-    console.error(111111111111111)
+    this.initDetail(this.queryId)
   },
   deactivated () {
     // keep-alive 组件停用时调用。
     console.log('钩子事件：deactivated - ' + this.$router.history.current.fullPath)
+  },
+  methods: {
+    initDetail (articleId) {
+      this.switchFlag = false
+      let ajaxSuccess = (res) => {
+        let itemList = res.data
+        for (let value of itemList) {
+          if (value['articleId'] === articleId) {
+            this.renderPageData(value)
+            break
+          }
+        }
+      }
+
+      let ajaxError = (res) => {
+        console.error('获取文章列表接口返回有误')
+      }
+
+      this.$http.get('static/dataBase/articleList.json').then(ajaxSuccess, ajaxError)
+    },
+    renderPageData (itemData = {}) {
+      this.switchFlag = true
+      this.itemData = itemData
+      console.log(itemData)
+    }
   }
 }
 
 compnnentData = pageExtend.extendAreaAutoScroll(compnnentData, {
-  el: '#PageHello2 .page-content',
+  el: '#ArticleDetail .page-content',
   setElHeight: function () {
     // 注意此处若用箭头函数，会导致this指向组件data变量
     console.warn(this)
@@ -85,9 +92,9 @@ compnnentData = pageExtend.extendAreaAutoScroll(compnnentData, {
       }
       return o
     }
-    let topH = $$('.Component-TopFloating').offsetHeight
+    let topH = $$('#ArticleDetail .Component-TopFloating').offsetHeight
     let winH = document.documentElement.clientHeight
-    return (winH - topH) + 'px'
+    return (winH - topH - 1) + 'px'
   }
 })
 export default compnnentData
@@ -95,22 +102,10 @@ export default compnnentData
  
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$aColor: #42b983;
-h1, h2 {
-  font-weight: normal;
+.fade-enter-active, .fade-leave-active{
+  transition: all 10.5s ease;
 }
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: $aColor;
+.fade-enter, .fade-leave-active{
+  opacity: 0
 }
 </style>

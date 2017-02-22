@@ -21,7 +21,7 @@ export default {
     }
   },
   mounted () {
-    console.log('初始化页面-TabUserCenter')
+    console.log('钩子事件：mounted - ' + this.$router.history.current.fullPath)
   }
 }
 </script>
