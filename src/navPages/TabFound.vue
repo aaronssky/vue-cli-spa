@@ -39,7 +39,8 @@ let compnnentData = {
         // componentHide: true
       },
       foundLooperSettings: {
-        title: '11'
+        title: '11',
+        itemList: []
       }
     }
   },
@@ -70,31 +71,10 @@ let compnnentData = {
   methods: {
     initArticles () {
       let ajaxSuccess = (res) => {
-        // let itemList = [
-        //   {
-        //     articleId: 1,
-        //     title: '在法国，有这样一座并没有玫瑰的「玫瑰之城」',
-        //     imgUrl: 'http://iusystem.bj.bcebos.com/9fed068fd899857e94404e132f1c006c.jpg'
-        //   },
-        //   {
-        //     articleId: 2,
-        //     title: '王健林叫板迪士尼，但主题乐园这门生意首富也玩不转',
-        //     imgUrl: 'http://iusystem.bj.bcebos.com/2356657ef32e5e42b507eec7a50b6e24.jpg'
-        //   },
-        //   {
-        //     articleId: 3,
-        //     title: '身为化妆品研发，告诉你高档产品与平价产品的差别在哪里',
-        //     imgUrl: 'http://iusystem.bj.bcebos.com/d1534cfd94269ea31f2e1451e18d5e9e.jpg'
-        //   },
-        //   {
-        //     articleId: 4,
-        //     title: '杨永信的「电疗法」和临床电刺激有什么区别？',
-        //     imgUrl: 'http://iusystem.bj.bcebos.com/ca2fbcfb21f888457d99a61fd214c2ce.jpg'
-        //   }
-        // ]
-        let itemList = res.data
-        itemList = itemList.concat(itemList)
-        itemList = itemList.concat(itemList)
+        window.jsonpData = res
+        console.log(res.data)
+        let itemList = res.data.content
+        this.foundLooperSettings.itemList = itemList
         this.itemList = itemList
       }
 
@@ -102,7 +82,38 @@ let compnnentData = {
         console.error('获取文章列表接口返回有误')
       }
 
-      this.$http.get('static/dataBase/articleList.json').then(ajaxSuccess, ajaxError)
+      // 用以缓存数据
+      if (typeof window.jsonpData === 'object') {
+        ajaxSuccess(window.jsonpData)
+        return false
+      }
+
+      let apiHost = '//aaronssky.duapp.com/transfer/getUrl.php'
+      let dataUrl = 'http://aaronssky.duapp.com/mySpa/static/dataBase/articleList.json'
+      if (location.host.indexOf('aaronssky.duapp.com') !== -1) {
+        // 线上环境
+        // this.$http.jsonp('//aaronssky.duapp.com/transfer/getUrl.php?url=http://aaronssky.duapp.com/mySpa/static/dataBase/articleList.json&callback=cb').then(ajaxSuccess, ajaxError)
+      } else {
+        // 本地环境
+        apiHost = 'http://' + '192.168.11.192' + '/bae/transfer/getUrl.php'
+        dataUrl = 'http://' + location.host + '/static/dataBase/articleList.json'
+        // this.$http({
+        //   url: 'static/dataBase/articleList.json',
+        //   method: 'GET',
+        //   data: {
+        //     id: 1
+        //   },
+        //   headers: {
+        //     'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+        //   }
+        // }).then(ajaxSuccess, ajaxError)
+      }
+
+      let jsonpUrl = apiHost + '?url=' + dataUrl
+
+      this.$http.jsonp(jsonpUrl).then(ajaxSuccess, ajaxError)
+
+      // this.$http.get('static/dataBase/articleList.json').then(ajaxSuccess, ajaxError)
     },
     toPageArticalDetail (item) {
       // this.$router.push('/Hello2?id=1')

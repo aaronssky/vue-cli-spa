@@ -17,6 +17,9 @@ var exp = (function(exp) {
         return o
     }
     exp.extendPageAutoScroll = function(o) {
+
+        var timer
+
         var defBeforeRouteEnter = function(to, from, next) {
             console.info(to.fullPath + ' 未自定义组件beforeRouteEnter钩子事件，执行默认扩展事件')
             next()
@@ -25,7 +28,7 @@ var exp = (function(exp) {
         var extendBeforeRouteEnter = function(to, from, next) {
             console.info(to.fullPath + ' 执行组件路由钩子扩展事件--beforeRouteEnter')
             window['pagesScrollData'] = window['pagesScrollData'] || {}
-            var timer = setInterval(function() {
+            timer = setInterval(function() {
                 var o = window['pagesScrollData'][to.fullPath],
                     x = 0,
                     y = 0;
@@ -69,6 +72,8 @@ var exp = (function(exp) {
         options = options || {}
         options.el = options.el || '.page-content'
 
+        var timer
+
         function $$(selector) {
             var o = document.querySelectorAll(selector)
             if (o && o.length >= 1) {
@@ -87,13 +92,20 @@ var exp = (function(exp) {
             window['pagesContScrollData'] = window['pagesContScrollData'] || {}
             var scrollData = window['pagesContScrollData'][to.fullPath]
             if (scrollData) {
-                var timer = setInterval(function() {
+                timer = setInterval(function() {
                     var obj = document.querySelector(options.el)
                     if (obj) {
-                        obj.scrollTop = scrollData['y']
-                        clearInterval(timer)
+                        // obj.scrollTop = scrollData['y']
+                        // clearInterval(timer)
+                        if(obj.scrollTop == scrollData['y']){
+                            clearInterval(timer)
+                        }else {
+                            obj.scrollTop = scrollData['y']
+                        }
+                        console.warn(to.fullPath + ' 路由找到.page-content元素，尝试自动定位到记录坐标')
+                    }else{
+                        console.warn(to.fullPath + ' 路由未渲染或者没找到.page-content元素，重试')
                     }
-                    console.warn(to.fullPath + ' 路由未渲染或者没找到.page-content元素，重试')
                 }, 10)
             }
         }
@@ -106,6 +118,7 @@ var exp = (function(exp) {
         }
 
         var extendBeforeRouteLeave = function(to, from, next) {
+            clearInterval(timer)
             var obj = document.querySelector(options.el)
             if (obj) {
                 window['pagesContScrollData'] = window['pagesContScrollData'] || {}

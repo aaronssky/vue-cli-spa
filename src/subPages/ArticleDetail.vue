@@ -1,24 +1,24 @@
 <template>
   <!-- 这是 Hello2.vue -->
-  <div class="page" id="ArticleDetail">
-    <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
+  <div class="page Page-ArticleDetail" id="ArticleDetail">
+    <TopFloating v-if="false" v-bind:settings="topFloatingSettings"></TopFloating>
     <div class="page-content">
-      <transition name="fade">
-        <h1 v-show="switchFlag">{{ itemData.title }}</h1>
+      <transition name="fade1">
+        <ArticleDetailContent v-bind:settings='itemData'></ArticleDetailContent>
       </transition>
-        {{queryId}}
-      <router-link to="/Hello3">to page3</router-link>
     </div>
-    
+    <ArticleDetailBottom v-bind:settings='detailBottomSettings'></ArticleDetailBottom>
   </div>
 </template>
 
 <script>
 import TopFloating from './../components/TopFloating'
+import ArticleDetailContent from './../components/ArticleDetailContent'
+import ArticleDetailBottom from './../components/ArticleDetailBottom'
 import pageExtend from './../../static/js/lib/pageExtend.js'
 
 let compnnentData = {
-  components: {TopFloating},
+  components: {TopFloating, ArticleDetailContent, ArticleDetailBottom},
   data () {
     return {
       msg: 'hello page2222',
@@ -26,6 +26,8 @@ let compnnentData = {
       itemData: {},
       topFloatingSettings: {
         title: '文章标题'
+      },
+      detailBottomSettings: {
       },
       switchFlag: true
     }
@@ -55,12 +57,19 @@ let compnnentData = {
   },
   methods: {
     initDetail (articleId) {
+      this.itemData = {} // 清空页面数据，等待接口返回
       this.switchFlag = false
       let ajaxSuccess = (res) => {
-        let itemList = res.data
+        window.jsonpData = res
+        let itemList = res.data.content
         for (let value of itemList) {
           if (value['articleId'] === articleId) {
             this.renderPageData(value)
+            this.detailBottomSettings = {
+              nextId: (~~articleId) % itemList.length + 1,
+              upCount: ~~(Math.random() * 1000),
+              isUp: false
+            }
             break
           }
         }
@@ -70,7 +79,25 @@ let compnnentData = {
         console.error('获取文章列表接口返回有误')
       }
 
-      this.$http.get('static/dataBase/articleList.json').then(ajaxSuccess, ajaxError)
+      // 用以缓存数据
+      if (typeof window.jsonpData === 'object') {
+        ajaxSuccess(window.jsonpData)
+        return false
+      }
+
+      let apiHost = '//aaronssky.duapp.com/transfer/getUrl.php'
+      let dataUrl = 'http://aaronssky.duapp.com/mySpa/static/dataBase/articleList.json'
+      if (location.host.indexOf('aaronssky.duapp.com') !== -1) {
+        // 线上环境
+      } else {
+        // 本地环境
+        apiHost = 'http://' + '192.168.11.192' + '/bae/transfer/getUrl.php'
+        dataUrl = 'http://' + location.host + '/static/dataBase/articleList.json'
+      }
+
+      let jsonpUrl = apiHost + '?url=' + dataUrl
+
+      this.$http.jsonp(jsonpUrl).then(ajaxSuccess, ajaxError)
     },
     renderPageData (itemData = {}) {
       this.switchFlag = true
@@ -94,18 +121,32 @@ compnnentData = pageExtend.extendAreaAutoScroll(compnnentData, {
     }
     let topH = $$('#ArticleDetail .Component-TopFloating').offsetHeight
     let winH = document.documentElement.clientHeight
-    return (winH - topH - 1) + 'px'
+    let bottomH = $$('#ArticleDetail .Component-ArticleDetailBottom').offsetHeight
+    return (winH - (topH || 0) - (bottomH || 0) - 1) + 'px'
   }
 })
 export default compnnentData
 </script>
  
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-.fade-enter-active, .fade-leave-active{
-  transition: all 10.5s ease;
+<style lang="scss">
+@mixin prefix($property, $value){
+    -webkit-#{$property}: $value;
+    -moz-#{$property}: $value;
+    #{$property}: $value;
 }
-.fade-enter, .fade-leave-active{
-  opacity: 0
+.Page-ArticleDetail{
+
+  .fade-enter-active, .fade-leave-active{
+    transition: all 10.5s ease;
+  }
+  .fade-enter, .fade-leave-active{
+    opacity: 0
+  }
+
+
+  .content-image{
+    width: 100%;
+  }
 }
 </style>

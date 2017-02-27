@@ -17,6 +17,7 @@ let vueData = {
   }
 }
 router.beforeEach((to, from, next) => {
+  let index = routerHistory.indexOf(to.fullPath)
   console.log(from)
   console.log(to)
   // if (to.path === '/') {
@@ -26,8 +27,8 @@ router.beforeEach((to, from, next) => {
   // if (to.path === '/') {
   //   routerHistory = []
   // }
-  if (to.fullPath === routerHistory[routerHistory.length - 2]) {
-    routerHistory.pop()
+  if (index !== -1) {
+    routerHistory = routerHistory.slice(0, index + 1)
     console.log('后')
     appVue.tName = 'slide-prev'
   } else {

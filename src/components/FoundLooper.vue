@@ -1,46 +1,18 @@
 <template>
   <div class="swiper-container Component-FoundLooper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/beb2f8b480b756843016eb9b4987ce5c.jpg"/>
+      <template v-for="item in settings.itemList">
+        <div class="swiper-slide" @click="toPageArticalDetail(item)">
+          <div class="pic">
+            <img :src="item.imgUrl"/>
+          </div>
+          <div class="info">
+            <p class="title projection">
+              {{item.title}}
+            </p>
+          </div>
         </div>
-        <div class="info">
-          <p class="title projection">
-            市值超过 Twitter，微博抓住了年轻人、娱乐化和更多玩法
-          </p>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/51ea01f826dcac52c7e53926a6ee6489.jpg"/>
-        </div>
-        <div class="info">
-          <p class="title projection">
-            为何没多少人买，星巴克还在卖依云？
-          </p>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/d54d9543778b4fb5599dc4276e5e88eb.jpg"/>
-        </div>
-        <div class="info">
-          <p class="title projection">
-            「老板，来一打爱，我抑郁了」
-          </p>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="pic">
-          <img src="http://iusystem.bj.bcebos.com/3f9e5c82e571804a7fa7c50f4ddc4701.jpg"/>
-        </div>
-        <div class="info">
-          <p class="title projection">
-            常和数据打交道，一定知道做好「数据清洗」有多重要
-          </p>
-        </div>
-      </div>
+      </template>
     </div>
     <div class="swiper-pagination"></div>
   </div>
@@ -66,15 +38,26 @@ export default {
   },
   mounted () {
     console.log('初始化组件-FoundLooper')
-    /* eslint-disable no-new */
-    this.settings.swiper = global.foundSwiper = new Swiper('.swiper-container', {
-      pagination: '.swiper-pagination',
-      autoplay: 3000, // 可选选项，自动滑动
-      loop: true,
-      autoplayDisableOnInteraction: false
-    })
+    let timer = setInterval(() => {
+      if (this.settings.itemList.length > 0) {
+        this.initComponent()
+        clearInterval(timer)
+      }
+    }, 100)
   },
   methods: {
+    initComponent () {
+      /* eslint-disable no-new */
+      this.settings.swiper = global.foundSwiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        autoplay: 3000, // 可选选项，自动滑动
+        loop: true,
+        autoplayDisableOnInteraction: false
+      })
+    },
+    toPageArticalDetail (item) {
+      this.$router.push({name: 'ArticleDetail', query: { id: item.articleId }})
+    }
   },
   beforeRouteLeave (to, from, next) {
     console.log(333333333333)
@@ -84,7 +67,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style lang="scss" scope>
 /*使用scss编译，无法引用外链CSS，估计存在加载先后问题*/
 /*@import "https://qiniu-cdn7.jinxidao.com/style/swiper.min.css";*/
 @import "./../../static/css/swiper.min.css";
