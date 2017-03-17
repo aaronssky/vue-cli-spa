@@ -16,7 +16,7 @@ export default {
       msg: '这是用户中心',
       topFloatingSettings: {
         title: '用户中心',
-        isNavPages: true
+        hiddenBackArrow: true
       }
     }
   },

@@ -35,7 +35,7 @@ let compnnentData = {
       itemList: [], // 文章列表数据
       topFloatingSettings: {
         title: '发现',
-        isNavPages: true
+        hiddenBackArrow: true
         // componentHide: true
       },
       foundLooperSettings: {

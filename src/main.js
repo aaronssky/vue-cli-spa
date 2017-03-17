@@ -4,6 +4,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
+import aVueTouch from './../static/js/lib/aVueTouch'
 let [routerHistory, appVue] = [[]]
 let vueData = {
   el: '#app',
@@ -44,6 +45,7 @@ router.beforeEach((to, from, next) => {
 })
 
 Vue.use(VueResource)
+Vue.use(aVueTouch)
 
 /* eslint-disable no-new */
 appVue = new Vue(vueData)

@@ -2,20 +2,11 @@
   <div class="tab-page" id="PageHome">
     <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
     <div class="page-content">
+      <input v-touch:tap="onTap">onTap
+      <Br>
+      <input v-touch:tap="onTap()">onTap()
       <h1 @click="show1">{{ msg }}</h1>
       <h1 @click="hide1">{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
-      <h1>{{ msg }}</h1>
       <h1>{{ msg }}</h1>
       <router-link to="/Hello2?id=1">路由跳转到Hello2</router-link>
     </div>
@@ -36,7 +27,7 @@ let compnnentData = {
       msg: '这是首页',
       topFloatingSettings: {
         title: '首页标题',
-        isNavPages: true
+        hiddenBackArrow: true
       },
       show: false
     }
@@ -59,6 +50,11 @@ let compnnentData = {
     },
     hide1 () {
       this.show = false
+    },
+    onTap (pp) {
+      console.log(33)
+      this.msg = '44'
+      return 33
     }
   }
 }

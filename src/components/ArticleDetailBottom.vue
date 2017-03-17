@@ -15,7 +15,10 @@
           </div>
         </div>
         <div class="tab-item"><i class="iconfont icon-shoucang"></i></div>
-        <div class="tab-item"><i class="iconfont icon-xiaoxi"></i></div>
+        <div class="tab-item" @click="goArticleComment">
+          <i class="iconfont icon-xiaoxi"></i>
+          <span class="comment-count up-count">123</span>
+        </div>
       </div>
     </div>
   </div>
@@ -100,6 +103,9 @@ export default {
         this.rowNowHtml = returnHtml(nowCount, flag)
         this.rowAfterHtml = returnHtml(afterCount, flag)
       }
+    },
+    goArticleComment () {
+      this.$router.push('/ArticleComment?id=' + this.settings.articleId)
     }
   }
 }
@@ -191,10 +197,20 @@ $pagePadding: 0.25rem;
 
       .up-count{
         position: absolute;
-        font-size: 0.25rem;
+        font-size: 0.2rem;
         top: 0.08rem;
         left: 1.25rem;
         line-height: 0.3rem;
+      }
+
+      .comment-count{
+        color: #fff;
+        position: absolute;
+        display: inline-block;
+        background-color: #04b9f7;
+        width: 0.6rem;
+        line-height: 0.3rem;
+        left: 50%;
       }
 
       .up-animation{
@@ -247,6 +263,8 @@ $pagePadding: 0.25rem;
       }
     }
   }
+
+  
 }
 
 </style>

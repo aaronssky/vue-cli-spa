@@ -1,7 +1,7 @@
 <template>
-  <div class="Component-TopFloating nav-top" v-if="!settings.componentHide">
+  <div class="Component-TopFloating nav-top">
     <div class="top-floating">
-      <i class="iconfont icon-arrow-back" @click="goBackPage" v-if="!settings.isNavPages"></i>
+      <i class="iconfont icon-arrow-back" @click="goBackPage" v-if="!settings.hiddenBackArrow"></i>
       {{settings.title}}
     </div>
   </div>

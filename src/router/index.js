@@ -5,6 +5,7 @@ import TabHome from 'navPages/TabHome'
 import TabFound from 'navPages/TabFound'
 import TabUserCenter from 'navPages/TabUserCenter'
 import ArticleDetail from 'subPages/ArticleDetail'
+import ArticleComment from 'subPages/ArticleComment'
 import Hello2 from 'subPages/Hello2'
 import Hello3 from 'subPages/Hello3'
 
@@ -68,6 +69,10 @@ export default new Router({
       path: '/ArticleDetail',
       name: 'ArticleDetail',
       component: ArticleDetail
+    }, {
+      path: '/ArticleComment',
+      name: 'ArticleComment',
+      component: ArticleComment
     }, {
       path: '/Hello2',
       name: 'Hello2',

@@ -65,10 +65,12 @@ let compnnentData = {
         for (let value of itemList) {
           if (value['articleId'] === articleId) {
             this.renderPageData(value)
+            console.log(value)
             this.detailBottomSettings = {
               nextId: (~~articleId) % itemList.length + 1,
-              upCount: ~~(Math.random() * 1000),
-              isUp: false
+              upCount: value.upCount,
+              isUp: value.isUp,
+              articleId: value['articleId']
             }
             break
           }
