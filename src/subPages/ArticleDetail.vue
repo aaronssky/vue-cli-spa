@@ -93,7 +93,7 @@ let compnnentData = {
         // 线上环境
       } else {
         // 本地环境
-        apiHost = 'http://' + '192.168.11.192' + '/bae/transfer/getUrl.php'
+        apiHost = 'http://' + '192.168.10.119' + '/bae/transfer/getUrl.php'
         dataUrl = 'http://' + location.host + '/static/dataBase/articleList.json'
       }
 

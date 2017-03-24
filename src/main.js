@@ -5,6 +5,7 @@ import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
 import aVueTouch from './../static/js/lib/aVueTouch'
+import AlloyFinger from './../static/js/lib/alloy_finger'
 let [routerHistory, appVue] = [[]]
 let vueData = {
   el: '#app',
@@ -45,7 +46,7 @@ router.beforeEach((to, from, next) => {
 })
 
 Vue.use(VueResource)
-Vue.use(aVueTouch)
+Vue.use(aVueTouch, {AlloyFinger: AlloyFinger})
 
 /* eslint-disable no-new */
 appVue = new Vue(vueData)

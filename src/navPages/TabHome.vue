@@ -2,9 +2,11 @@
   <div class="tab-page" id="PageHome">
     <TopFloating v-bind:settings="topFloatingSettings"></TopFloating>
     <div class="page-content">
-      <input v-touch:tap="onTap">onTap
+      <!-- <input v-touch:tap="onTap">onTap
       <Br>
-      <input v-touch:tap="onTap()">onTap()
+      <input v-touch:tap="onTap()">onTap() -->
+      <input v-touch:doubleTap="{method:onTap, arguments:[1,2,3]}" v-touch:swipe="{method:onTap, arguments:[1,2,3]}">onTap()
+      <input v-on:click="onTap($event,2,3)">onTap()
       <h1 @click="show1">{{ msg }}</h1>
       <h1 @click="hide1">{{ msg }}</h1>
       <h1>{{ msg }}</h1>
@@ -51,8 +53,12 @@ let compnnentData = {
     hide1 () {
       this.show = false
     },
-    onTap (pp) {
-      console.log(33)
+    onTap (p1, p2, p3) {
+      console.log(p1)
+      console.log(p2)
+      console.log(p3)
+      console.log(arguments[arguments.length - 1])
+      console.log(this)
       this.msg = '44'
       return 33
     }

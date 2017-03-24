@@ -95,7 +95,7 @@ let compnnentData = {
         // this.$http.jsonp('//aaronssky.duapp.com/transfer/getUrl.php?url=http://aaronssky.duapp.com/mySpa/static/dataBase/articleList.json&callback=cb').then(ajaxSuccess, ajaxError)
       } else {
         // 本地环境
-        apiHost = 'http://' + '192.168.11.192' + '/bae/transfer/getUrl.php'
+        apiHost = 'http://' + '192.168.10.119' + '/bae/transfer/getUrl.php'
         dataUrl = 'http://' + location.host + '/static/dataBase/articleList.json'
         // this.$http({
         //   url: 'static/dataBase/articleList.json',
